@@ -39,7 +39,7 @@ Task-05/
 6. Customized the look with CSS.
 
 ## Output Screenshot
-![Live Website](screenshots/screenshot.png)
+![Live Website](screenshots/live-website.png)
 
 ## Interview Questions & Answers
 
