@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building Docker image for Task-02...'
+                dir('Task-02') {
+                    sh 'docker build -t task02-web-app:latest .'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing Docker image...'
+                sh 'docker images | grep task02-web-app'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying container on port 8085...'
+                sh 'docker rm -f task02-container || true'
+                sh 'docker run -d --name task02-container -p 8085:80 task02-web-app:latest'
+            }
+        }
+    }
+}
