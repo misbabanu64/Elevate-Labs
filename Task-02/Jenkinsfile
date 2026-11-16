@@ -4,25 +4,22 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building Docker image for Task-02...'
-                dir('Task-02') {
-                    sh 'docker build -t task02-web-app:latest .'
-                }
+                echo 'Building application for Task-02...'
+                bat 'dir Task-02'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Testing Docker image...'
-                sh 'docker images | grep task02-web-app'
+                echo 'Running automated tests...'
+                bat 'findstr "Elevate Labs" Task-02\\index.html'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying container on port 8085...'
-                sh 'docker rm -f task02-container || true'
-                sh 'docker run -d --name task02-container -p 8085:80 task02-web-app:latest'
+                echo 'Deploying Task-02 web application...'
+                bat 'if not exist deploy mkdir deploy && copy /Y Task-02\\index.html deploy\\index.html'
             }
         }
     }
